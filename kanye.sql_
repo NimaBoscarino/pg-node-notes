@@ -1,5 +1,0 @@
-INSERT INTO artists (name) VALUES ('Kanye West');
-INSERT INTO artists (name) VALUES ('Drake');
-INSERT INTO artists (name) VALUES ('De La Soul');
-INSERT INTO artists (name) VALUES ('Nas');
-INSERT INTO artists (name) VALUES ('Yasiin Bey');
