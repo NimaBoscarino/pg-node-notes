@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-const songs = [
+const songDb = [
   {
     title: "old macdonald",
     id: 1,
@@ -20,6 +20,11 @@ const songs = [
   },
 ]
 
+function getSongById(id) {
+  let foundSong = songDb.filter(song => song.id == id)[0];
+  return foundSong
+}
+
 router.get('/new', function(req, res, next) {
   res.render('lyric_new');
 });
@@ -29,7 +34,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  let foundSong = songs.filter(song => song.id == req.params.id)[0];
+  let foundSong = getSongById(req.params.id)
 
   let templateVars = {
     id: req.params.id,
@@ -40,7 +45,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.get('/:id/edit', function(req, res, next) {
-  let foundSong = songs.filter(song => song.id == req.params.id)[0];
+  let foundSong = getSongById(req.params.id)
 
   let templateVars = {
     id: req.params.id,

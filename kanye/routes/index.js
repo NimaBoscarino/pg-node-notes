@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const songs = [
+const songDb = [
   {
     title: "old macdonald",
     id: 1,
@@ -20,9 +20,15 @@ const songs = [
 ]
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  songs = getSongs()
+
   res.render('index', {
     songs: songs
   });
 });
+
+function getSongs() {
+  return songDb
+}
 
 module.exports = router;
