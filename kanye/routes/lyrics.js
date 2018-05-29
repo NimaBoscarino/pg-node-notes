@@ -1,29 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-const songDb = [
-  {
-    title: "old macdonald",
-    id: 1,
-    lyrics: "had a farm!"
-  },
-  {
-    title: "row row row your boat",
-    id: 2,
-    lyrics: "gently down the stream"
-  },
-  {
-    title: "baa baa black sheep",
-    id: 3,
-    lyrics: "have you any wool"
-  },
-]
-
-function getSongById(id, cb) {
-  let foundSong = songDb.filter(song => song.id == id)[0];
-  cb(null, foundSong)
-}
+const { getSongById } = require('../data/data-songs')();
 
 router.get('/new', function(req, res, next) {
   res.render('lyric_new');
