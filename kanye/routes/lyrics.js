@@ -20,9 +20,9 @@ const songDb = [
   },
 ]
 
-function getSongById(id) {
+function getSongById(id, cb) {
   let foundSong = songDb.filter(song => song.id == id)[0];
-  return foundSong
+  cb(null, foundSong)
 }
 
 router.get('/new', function(req, res, next) {
@@ -34,25 +34,29 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  let foundSong = getSongById(req.params.id)
-
-  let templateVars = {
-    id: req.params.id,
-    title: foundSong.title,
-    lyrics: foundSong.lyrics
-  }
-  res.render('lyric', templateVars);
+  getSongById(req.params.id, (err, foundSong) => {
+    if (err) {
+      console.log('ERR', err)
+    } else {
+      let templateVars = {
+        id: req.params.id,
+        title: foundSong.title,
+        lyrics: foundSong.lyrics
+      }
+      res.render('lyric', templateVars);  
+    }
+  })
 });
 
 router.get('/:id/edit', function(req, res, next) {
-  let foundSong = getSongById(req.params.id)
-
-  let templateVars = {
-    id: req.params.id,
-    title: foundSong.title,
-    lyrics: foundSong.lyrics
-  }
-  res.render('lyric_edit', templateVars);
+  getSongById(req.params.id, (err, foundSong) => {
+    let templateVars = {
+      id: req.params.id,
+      title: foundSong.title,
+      lyrics: foundSong.lyrics
+    }
+    res.render('lyric_edit', templateVars);
+  })
 });
 
 router.post('/:id/edit', function(req, res, next) {

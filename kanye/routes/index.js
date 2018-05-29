@@ -20,15 +20,19 @@ const songDb = [
 ]
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  songs = getSongs()
-
-  res.render('index', {
-    songs: songs
-  });
+  getSongs((err, songs) => {
+    if (err) {
+      console.log('ERR:', err)
+    } else {
+      res.render('index', {
+        songs: songs
+      })  
+    }
+  })
 });
 
-function getSongs() {
-  return songDb
+function getSongs(cb) {
+  cb(null, songDb)
 }
 
 module.exports = router;
