@@ -1,54 +1,46 @@
 const { Client } = require('pg')
 const client = new Client({
-    database: 'pg_test'
+    database: 'hiphop'
 })
 
 client.connect()
 
-function getUsers(cb) {
-    client.query('SELECT * FROM users', (err, res) => {
-        // console.log(err, res)
+function getAllArtists(cb) {
+    client.query('SELECT * from artists', (err, res) => {
+        // console.log(err ? err.stack : res.rows)
         cb(err, res.rows)
     })
 }
 
-function getUserByName(name, cb) {
-    client.query('SELECT * FROM users WHERE name=$1::text LIMIT 1', [name], (err, res) => {
-        // console.log(err, res)
+function getArtistByName(name, cb) {
+    client.query('SELECT * from artists WHERE name = $1::text LIMIT 1', [name], (err, res) => {
+        // console.log(err ? err.stack : res.rows)
         cb(err, res.rows)
     })
 }
-
-function getNotUsersByName(name, cb) {
-    client.query('SELECT * FROM users WHERE name!=$1::text', [name], (err, res) => {
-        // console.log(err, res)
-        cb(err, res.rows)
-    })
-}
-
-getNotUsersByName('sally', (err, users) => {
+getArtistByName('Kanye West', (err, res) => {
     if (err) {
-        console.log('ERR:', err)
+        console.log(err)
     } else {
-        console.log(users)
-        client.end()
+        console.log(res)
     }
 })
 
-// getUserByName('sally', (err, user) => {
+getArtistByName('Yasiin Bey', (err, res) => {
+    if (err) {
+        console.log(err)
+    } else {
+        console.log(res)
+    }
+
+})
+
+// getAllArtists((err, res) => {
 //     if (err) {
-//         console.log('ERR:', err)
+//         console.log(err)
 //     } else {
-//         console.log(user)
-//         client.end()
+//         console.log("The artists are...")
+//         res.forEach(artist => console.log(artist.name))
 //     }
 // })
 
-// getUsers((err, users) => {
-//     if (err) {
-//         console.log('ERR:', err)
-//     } else {
-//         console.log(users)
-//         // client.end()
-//     }
-// })
