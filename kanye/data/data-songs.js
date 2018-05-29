@@ -16,16 +16,28 @@ const songDb = [
     },
 ]
 
-function makeSongsData() {
+function makeSongsData(client) {
   
     function getSongById(id, cb) {
-        let foundSong = songDb.filter(song => song.id == id)[0];
-        cb(null, foundSong)
+        client.query('SELECT * from songs inner join lyrics on lyrics.id = songs.lyric_id WHERE songs.id = $1 LIMIT 1', [id], (err, res) => {
+            let foundRawSong = res.rows[0]
+            let foundSong = {
+                id: foundRawSong.id,
+                title: foundRawSong.title,
+                lyrics: foundRawSong.text
+            }
+
+            // console.log(foundSong.lyrics)
+
+            cb(err, foundSong)
+        })        
     }
 
 
     function getSongs(cb) {
-        cb(null, songDb)
+        client.query('SELECT id, title FROM songs', (err, res) => {
+            cb(err, res.rows)
+        })        
     }
   
     return {

@@ -14,7 +14,7 @@
           </form>    
       </div>
       <h2><%= title %></h2>
-      <% lyrics.split('\n').forEach(stanza => { %>
+      <% lyrics.split('\\n').forEach(stanza => { %>
         <p><%= stanza.includes("googletag") ? "" : stanza %></p>
       <% }) %>
       <div class="arms-container">

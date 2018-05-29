@@ -1,7 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-const { getSongById } = require('../data/data-songs')();
+const { Client } = require('pg')
+const client = new Client({
+  database: 'hiphop'
+})
+
+client.connect()
+
+const { getSongById } = require('../data/data-songs')(client);
 
 router.get('/new', function(req, res, next) {
   res.render('lyric_new');
@@ -21,6 +28,7 @@ router.get('/:id', function(req, res, next) {
         title: foundSong.title,
         lyrics: foundSong.lyrics
       }
+
       res.render('lyric', templateVars);  
     }
   })
@@ -33,6 +41,7 @@ router.get('/:id/edit', function(req, res, next) {
       title: foundSong.title,
       lyrics: foundSong.lyrics
     }
+    
     res.render('lyric_edit', templateVars);
   })
 });

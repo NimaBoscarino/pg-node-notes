@@ -1,7 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-const { getSongs } = require('../data/data-songs')();
+const { Client } = require('pg')
+const client = new Client({
+  database: 'hiphop'
+})
+
+client.connect()
+
+const { getSongs } = require('../data/data-songs')(client);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
