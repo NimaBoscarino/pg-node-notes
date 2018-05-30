@@ -40,9 +40,18 @@ function makeSongsData(client) {
         })        
     }
   
+    function updateSongById(id, updateData, cb) {
+        let lyric = updateData.edited_lyric
+        client.query('UPDATE lyrics SET text = $1 WHERE id = $2', [lyric, id], (err, res) => {
+            console.log(res.rows)
+            cb(err, null)
+        })        
+
+    }
     return {
         getSongById,
-        getSongs
+        getSongs,
+        updateSongById
     };
 }
 

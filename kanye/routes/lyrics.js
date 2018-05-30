@@ -8,7 +8,7 @@ const client = new Client({
 
 client.connect()
 
-const { getSongById } = require('../data/data-songs')(client);
+const { getSongById, updateSongById } = require('../data/data-songs')(client);
 
 router.get('/new', function(req, res, next) {
   res.render('lyric_new');
@@ -47,7 +47,9 @@ router.get('/:id/edit', function(req, res, next) {
 });
 
 router.post('/:id/edit', function(req, res, next) {
-  res.redirect(`/lyrics/${req.params.id}`);
+  updateSongById(req.params.id, { edited_lyric: req.body.edited_lyric }, (err, updatedSong) => {
+    res.redirect(`/lyrics/${req.params.id}`);
+  })
 });
 
 router.post('/:id/delete', function(req, res, next) {
