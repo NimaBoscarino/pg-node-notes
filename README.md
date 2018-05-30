@@ -57,17 +57,21 @@ getArtistByName('Kanye West', (err, res) => {
 ```
 
 Also worth noting is that `pg` lets us parameterize the queries with this funky "$" notation. In a query, I can parameterize any variable with the $ symbol and a number. Then, the second parametery to the query is an array with a bunch of values. The number for each $ symbol refers to the **index** of that array. **NOTE: The array is 1-indexed**. So this:
+
 ```js
 client.query('SELECT * from artists WHERE name = $1 LIMIT $2', ['Billy', '1'], (err, res) => {
     cb(err, res.rows)
 })
 ```
+
 Turns into this:
+
 ```js
 client.query("SELECT * from artists WHERE name = 'Billy' LIMIT 1", (err, res) => {
     cb(err, res.rows)
 })
 ```
+
 Why would we want to do this? `pg` automatically sanitizes the inputs when we parameterize the query like this, so we can be sure that nothing funky is running on our database. I suggest taking a look at this classic comic: [Bobby Tables](http://bobby-tables.com/).
 
 ~ Nima Boscarino 🤖
