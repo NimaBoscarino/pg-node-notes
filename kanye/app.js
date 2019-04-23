@@ -40,4 +40,8 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-console.log("Server is running on 3000")
+
+app.listen(3000, () => {
+  
+  console.log("Server is running on 3000")
+})

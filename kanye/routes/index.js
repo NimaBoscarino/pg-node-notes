@@ -3,7 +3,7 @@ var router = express.Router();
 
 const { Client } = require('pg')
 const client = new Client({
-  database: 'hiphop'
+  database: 'hippity_hop'
 })
 
 client.connect()

@@ -18,19 +18,29 @@ function getArtistByName(name, cb) {
         cb(err, res.rows)
     })
 }
-
-const kanye = "Kanye West"
-const nas = "Nas"
-
-getAllArtists((err, rows) => {
-    console.log(rows)
+getArtistByName('Kanye West', (err, res) => {
+    if (err) {
+        console.log(err)
+    } else {
+        console.log(res)
+    }
 })
 
+getArtistByName('Yasiin Bey', (err, res) => {
+    if (err) {
+        console.log(err)
+    } else {
+        console.log(res)
+    }
 
-getArtistByName(kanye, (err, rows) => {
-    console.log(rows)
 })
 
-getArtistByName(nas, (err, rows) => {
-    console.log(rows)
-})
+// getAllArtists((err, res) => {
+//     if (err) {
+//         console.log(err)
+//     } else {
+//         console.log("The artists are...")
+//         res.forEach(artist => console.log(artist.name))
+//     }
+// })
+
