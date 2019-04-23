@@ -1,5 +1,9 @@
 ## SQL from our Apps
 
+Today's code: [GITHUB REPO](https://github.com/NimaBoscarino/pg-node-notes)
+
+Note! Remember to `npm install` for the demos, and that you can run the kanye demos with `npm start`.
+
 As always, you're going to need to dive into the documentation! Here are some good places to start:
 
 1. [node-postgres](https://node-postgres.com/)
@@ -14,7 +18,7 @@ Today's main goals were:
 
 Last week we talked about MongoDB, both in the shell and in Node. Yesterday (W4D1) we talked about Postgres in the shell. Today we looked a Postgres in Node! There's a handy Postgres driver called `pg` that lets us connect to a database (local or remote), and write SQL queries to interact with our tables.
 
-The `pg` module is an npm package that can installed with `npm i pg --save`. 
+The `pg` module is an npm package that can installed with `npm i pg`. 
 
 ```js
 const { Client } = require('pg')
